@@ -4,6 +4,9 @@ FROM ubuntu:20.04
 # Mettre à jour les packages
 RUN apt-get update && apt-get -y upgrade
 
+# Installer Git
+RUN apt-get -y install git
+
 # Installer les outils de développement C++ et les dépendances nécessaires
 RUN apt-get -y install build-essential cmake libboost-all-dev
 
