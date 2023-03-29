@@ -1,5 +1,5 @@
 # Utilise une image de base Ubuntu 20.04
-FROM ubuntu:20.04
+FROM debian:11
 
 # Mettre à jour les packages
 RUN apt-get update && apt-get -y upgrade
