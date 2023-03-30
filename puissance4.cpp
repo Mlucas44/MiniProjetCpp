@@ -6,6 +6,7 @@
 puissance4::puissance4() {
     board = new char[ROWS * COLS];
     initBoard();
+    getPlayersInfo();
 }
 
 // Destructeur
@@ -40,26 +41,33 @@ void puissance4::printBoard() {
 
 // Demande à l'utilisateur de saisir une colonne valide pour placer son jeton.
 int puissance4::getColumn() {
-    // Colonne choisie par le joueur
     int col;
     do {
         // demande au joueur de saisir une colonne
-        std::cout << "Joueur " << (turn % 2) + 1 << ", veuillez choisir une colonne (1-7) : ";
+        std::cout << "C'est le tour de " << ((turn % 2 == 0) ? player1_name : player2_name) << ", entrez le numéro de colonne : ";
         std::cin >> col;
-        // Si saisie invalide
+        // si la saisie invalide
         if (std::cin.fail()) {
             // vide le flux d'entrée cin
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Entrée non valide. Veuillez entrer un nombre entier entre 1 et 7." << std::endl;
+            std::cout << "Entrée invalide. Veuillez entrer un nombre entier entre 1 et 7." << std::endl;
         } else if (col < 1 || col > 7) {
-            std::cout << "Entrée non valide. Veuillez entrer un nombre entier entre 1 et 7." << std::endl;
+            std::cout << "Entrée invalide. Veuillez entrer un nombre entier entre 1 et 7." << std::endl;
         } else {
             break;
         }
     } while (true);
 
     return col;
+}
+
+// Demande aux joueurs de saisir leur nom.
+void puissance4::getPlayersInfo() {
+    std::cout << "Joueur 1, entrez votre nom : ";
+    std::cin >> player1_name;
+    std::cout << "Joueur 2, entrez votre nom : ";
+    std::cin >> player2_name;
 }
 
 // Place le jeton dans la colonne donnée sur le plateau de jeu.
@@ -149,15 +157,16 @@ void puissance4::playGame() {
         printBoard();
         int col = getColumn()-1;
         char symbol = (turn % 2 == 0) ? PLAYER_ONE_SYMBOL : PLAYER_TWO_SYMBOL;
+        std::string player_name = (turn % 2 == 0) ? player1_name : player2_name;
         if (dropToken(symbol, col)) {
             if (checkWin(symbol)) {
                 printBoard();
-                printResult(false, (turn % 2) + 1);
+                std::cout << "Le joueur " << player_name << " a gagné !" << std::endl;
                 break;
             }
             if (isGameOver()) {
                 printBoard();
-                printResult(true, 0);
+                std::cout << "Match nul !" << std::endl;
                 break;
             }
             turn++;

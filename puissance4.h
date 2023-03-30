@@ -9,8 +9,12 @@ class puissance4 {
 public:
     puissance4();
     ~puissance4();
+    // méthode pour lancer le jeu
     void playGame();
+    // méthode pour rejouer une fois la partie fini
     bool playAgain();
+    // méthode pour demander les noms des joueurs
+    void getPlayersInfo(); 
 
 private:
     const int ROWS = 6;
@@ -20,6 +24,8 @@ private:
     const char PLAYER_ONE_SYMBOL = 'X';
     const char PLAYER_TWO_SYMBOL = 'O';
     const char EMPTY_SYMBOL = ' ';
+    std::string player1_name;
+    std::string player2_name;
 
     void initBoard();
     void printBoard();
@@ -31,4 +37,3 @@ private:
 };
 
 #endif
-
