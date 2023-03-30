@@ -1,28 +1,35 @@
 #include "puissance4.h"
 #include <iostream>
 #include <vector>
-    
+
+// Constructeur
 puissance4::puissance4() {
     board = new char[ROWS * COLS];
     initBoard();
 }
 
+// Destructeur
 puissance4::~puissance4() {
     delete[] board;
 }
 
+// Initialise le plateau de jeu avec le symbole vide (EMPTY_SYMBOL).
 void puissance4::initBoard() {
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
+            // board = pointeur vers le tableau dynamique qui stoke les val du tab 
             *(board + i*COLS + j) = EMPTY_SYMBOL;
         }
     }
 }
 
+// Affiche le plateau de jeu sur la console.
 void puissance4::printBoard() {
     std::cout << std::endl;
+    // boucle sur les ligne du plateau (selon ROWS)
     for (int i = 0; i < ROWS; i++) {
         std::cout << "|";
+        // boucle ensuite sur les colone (selon COLS)
         for (int j = 0; j < COLS; j++) {
             std::cout << *(board + i*COLS + j) << "|";
         }
@@ -31,12 +38,17 @@ void puissance4::printBoard() {
     std::cout << " 1 2 3 4 5 6 7" << std::endl << std::endl;
 }
 
+// Demande à l'utilisateur de saisir une colonne valide pour placer son jeton.
 int puissance4::getColumn() {
+    // Colonne choisie par le joueur
     int col;
     do {
+        // demande au joueur de saisir une colonne
         std::cout << "Joueur " << (turn % 2) + 1 << ", veuillez choisir une colonne (1-7) : ";
         std::cin >> col;
+        // Si saisie invalide
         if (std::cin.fail()) {
+            // vide le flux d'entrée cin
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Entrée non valide. Veuillez entrer un nombre entier entre 1 et 7." << std::endl;
@@ -50,8 +62,10 @@ int puissance4::getColumn() {
     return col;
 }
 
+// Place le jeton dans la colonne donnée sur le plateau de jeu.
 bool puissance4::dropToken(char symbol, int col) {
     for (int i = ROWS - 1; i >= 0; i--) {
+        // Vérifie si la case est vide 
         if (*(board + i*COLS + col) == EMPTY_SYMBOL) {
             *(board + i*COLS + col) = symbol;
             return true;
@@ -59,7 +73,7 @@ bool puissance4::dropToken(char symbol, int col) {
     }
     return false;
 }
-
+// Vérifie si le symbole/Joueur donné a gagné le jeu.
 bool puissance4::checkWin(char symbol) {
     // Vérification des lignes
     for (int i = 0; i < ROWS; i++) {
@@ -103,10 +117,13 @@ bool puissance4::checkWin(char symbol) {
     return false;
 }
 
-
+// Vérifie si le plateau de jeu est rempli sans gagnant.
 bool puissance4::isGameOver() {
+    // parcour les ligne du plateau 
     for (int i = 0; i < ROWS; i++) {
+        // parcour les colonnes du plateau
         for (int j = 0; j < COLS; j++) {
+            // Vérifie que la case est vide 
             if (*(board + i*COLS + j) == EMPTY_SYMBOL) {
                 return false;
             }
@@ -115,6 +132,7 @@ bool puissance4::isGameOver() {
     return true;
 }
 
+// Affiche le résultat final de la partie en fonction de l'existence d'un gagnant ou d'un match nul.
 void puissance4::printResult(bool isTie, int winner) {
     if (isTie) {
         std::cout << "Match nul !" << std::endl;
@@ -123,6 +141,7 @@ void puissance4::printResult(bool isTie, int winner) {
     }
 }
 
+// Lance la tram du jeu 
 void puissance4::playGame() {
     initBoard();
     turn = 0;

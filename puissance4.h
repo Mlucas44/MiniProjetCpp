@@ -13,8 +13,8 @@ public:
     bool playAgain();
 
 private:
-    static const int ROWS = 6;
-    static const int COLS = 7;
+    const int ROWS = 6;
+    const int COLS = 7;
     int turn;
     char* board;
     const char PLAYER_ONE_SYMBOL = 'X';
