@@ -128,7 +128,7 @@ void puissance4::playGame() {
     turn = 0;
     while (true) {
         printBoard();
-        int col = getColumn();
+        int col = getColumn()-1;
         char symbol = (turn % 2 == 0) ? PLAYER_ONE_SYMBOL : PLAYER_TWO_SYMBOL;
         if (dropToken(symbol, col)) {
             if (checkWin(symbol)) {
@@ -150,12 +150,21 @@ void puissance4::playGame() {
 
 bool puissance4::playAgain() {
     char choice;
+    bool validChoice = false;
     do {
         std::cout << "Voulez-vous jouer à nouveau ? (O/N) : ";
         std::cin >> choice;
-        if (std::cin.fail()){
-               } else if (choice == 'N' || choice == 'n') {
+        if (std::cin.fail()) {
+            std::cout << "Entrée invalide. Veuillez entrer 'O' ou 'N'." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        } else if (choice == 'N' || choice == 'n') {
             return false;
+        } else if (choice == 'O' || choice == 'o') {
+            validChoice = true;
+        } else {
+            std::cout << "Entrée invalide. Veuillez entrer 'O' ou 'N'." << std::endl;
         }
-    } while (true);
+    } while (!validChoice);
+    return true;
 }
