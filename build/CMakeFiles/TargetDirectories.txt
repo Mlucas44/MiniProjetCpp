@@ -1,0 +1,3 @@
+/workspaces/MiniProjetCpp/build/CMakeFiles/rebuild_cache.dir
+/workspaces/MiniProjetCpp/build/CMakeFiles/edit_cache.dir
+/workspaces/MiniProjetCpp/build/CMakeFiles/mini_projet_cpp.dir

@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/workspaces/MiniProjetCpp/puissance4.cpp
+puissance4.h
+/workspaces/MiniProjetCpp/puissance4.h
+iostream
+-
+vector
+-
+
+/workspaces/MiniProjetCpp/puissance4.h
+iostream
+-
+limits
+-
+cstdlib
+-
+
