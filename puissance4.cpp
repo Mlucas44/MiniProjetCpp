@@ -40,22 +40,49 @@ void puissance4::printBoard() {
 }
 
 // Demande à l'utilisateur de saisir une colonne valide pour placer son jeton.
+// int puissance4::getColumn() {
+//     int col;
+//     do {
+//         // demande au joueur de saisir une colonne
+//         std::cout << "C'est le tour de " << ((turn % 2 == 0) ? player1_name : player2_name) << ", entrez le numéro de colonne : ";
+//         std::cin >> col;
+//         // si la saisie invalide
+//         if (std::cin.fail()) {
+//             // vide le flux d'entrée cin
+//             std::cin.clear();
+//             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//             std::cout << "Entrée invalide. Veuillez entrer un nombre entier entre 1 et 7." << std::endl;
+//         } else if (col < 1 || col > 7) {
+//             std::cout << "Entrée invalide. Veuillez entrer un nombre entier entre 1 et 7." << std::endl;
+//         } else {
+//             break;
+//         }
+//     } while (true);
+
+//     return col;
+// }
+
+// Demande à l'utilisateur de saisir une colonne valide pour placer son jeton.
 int puissance4::getColumn() {
     int col;
     do {
-        // demande au joueur de saisir une colonne
-        std::cout << "C'est le tour de " << ((turn % 2 == 0) ? player1_name : player2_name) << ", entrez le numéro de colonne : ";
-        std::cin >> col;
-        // si la saisie invalide
-        if (std::cin.fail()) {
-            // vide le flux d'entrée cin
+        try {
+            // demande au joueur de saisir une colonne
+            std::cout << "C'est le tour de " << ((turn % 2 == 0) ? player1_name : player2_name) << ", entrez le numéro de colonne : ";
+            std::cin >> col;
+
+            if (std::cin.fail()) {
+                throw std::runtime_error("Entrée invalide. Veuillez entrer un nombre entier entre 1 et 7.");
+            } else if (col < 1 || col > 7) {
+                throw std::out_of_range("Entrée invalide. Veuillez entrer un nombre entier entre 1 et 7.");
+            } else {
+                break;
+            }
+        } catch (const std::exception& e) {
+            // affiche le message d'erreur et vide le flux d'entrée cin
+            std::cout << e.what() << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Entrée invalide. Veuillez entrer un nombre entier entre 1 et 7." << std::endl;
-        } else if (col < 1 || col > 7) {
-            std::cout << "Entrée invalide. Veuillez entrer un nombre entier entre 1 et 7." << std::endl;
-        } else {
-            break;
         }
     } while (true);
 
